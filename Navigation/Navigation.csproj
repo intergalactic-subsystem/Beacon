@@ -96,6 +96,10 @@
     <Compile Include="lib\GravitationSource.cs" />
     <Compile Include="lib\Math\DoubleExtension.cs" />
     <Compile Include="lib\Math\Vector3.cs" />
+    <Compile Include="lib\Moon.cs" />
+    <Compile Include="lib\NamedGravitationSource.cs" />
+    <Compile Include="lib\Planet.cs" />
+    <Compile Include="lib\Star.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Navigation.cs" />
     <Compile Include="Program.cs" />

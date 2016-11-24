@@ -19,7 +19,7 @@ namespace Navigation.lib
         public Vector3 Position { get; set; }
         public Vector3 Velocity { get; set; }
         public Vector3 Acceleration { get; set; }
-        private Vector3 NextAcceleration;
+        private Vector3 _nextAcceleration;
 
         /// <summary>
         /// Creates a body of mass, in the spherical sense
@@ -82,7 +82,7 @@ namespace Navigation.lib
             var accel = force/Mass;
             // turn the vector into an acceleration vector
             normal *= accel;
-            NextAcceleration += normal;
+            _nextAcceleration += normal;
         }
 
         /// <summary>
@@ -105,10 +105,10 @@ namespace Navigation.lib
         {
             var lastAcceleration = Acceleration;
             Position += Velocity*deltaTime.TotalSeconds + (0.5*lastAcceleration*System.Math.Pow(deltaTime.TotalSeconds, 2));
-            Acceleration = NextAcceleration;
+            Acceleration = _nextAcceleration;
             var avgAcceleration = (lastAcceleration + Acceleration) / 2.0;
             Velocity += avgAcceleration*deltaTime.TotalSeconds;
-            NextAcceleration = new Vector3();
+            _nextAcceleration = new Vector3();
         }
     }
 }
