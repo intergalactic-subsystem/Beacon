@@ -103,12 +103,18 @@ namespace Navigation.lib
         /// <param name="deltaTime">The amount of time since the last calculation</param>
         public void Update(TimeSpan deltaTime)
         {
-            var lastAcceleration = Acceleration;
-            Position += Velocity*deltaTime.TotalSeconds + (0.5*lastAcceleration*System.Math.Pow(deltaTime.TotalSeconds, 2));
+            var dt = deltaTime.TotalSeconds;
+            Position += Velocity * dt + 0.5 * Acceleration * dt * dt;
+
+            // Update velocity half-step with the current acceleration
+            var newVelocity = Velocity + 0.5 * Acceleration * dt;
+
+            // Update acceleration to the next calculated acceleration (from previous Accelerate calls)
             Acceleration = _nextAcceleration;
-            var avgAcceleration = (lastAcceleration + Acceleration) / 2.0;
-            Velocity += avgAcceleration*deltaTime.TotalSeconds;
             _nextAcceleration = new Vector3();
+
+            // Complete the velocity update with the new acceleration
+            Velocity = newVelocity + 0.5 * Acceleration * dt;
         }
     }
 }
